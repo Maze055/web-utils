@@ -1,0 +1,18 @@
+accessLevels:
+	- public
+	- protected
+
+charset:
+	- UTF-8
+
+destination: "/home/maze/Files/Programming/Web Servers/Local/docs/php"
+
+exclude:
+	- autoload.php
+	- jsonFIle.php
+
+noSourceCode: yes
+
+source: "/home/maze/Files/Programming/Web Servers/Local/util/php"
+
+tree: yes

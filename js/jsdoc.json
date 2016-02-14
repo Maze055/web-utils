@@ -1,0 +1,19 @@
+{
+	"source": {
+		"include": ["/home/maze/Files/Programming/Web Servers/Local/util/js"],
+		"exclude": ["/home/maze/Files/Programming/Web Servers/Local/util/js/jsdoc.json"]
+    },
+	
+	"opts": {
+		"destination": "/home/maze/Files/Programming/Web Servers/Local/docs/js/",
+		"recurse": true
+	},
+	
+	"templates": {
+		"default": {
+			"outputSourceFiles": false
+		},
+		
+		"cleverLinks": true
+	}
+}

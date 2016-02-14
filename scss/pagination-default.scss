@@ -1,0 +1,38 @@
+/*
+
+Css styles for default pagination elements
+
+*/
+
+@import 'common';
+
+div.pagination {
+	@extend .pull-center-h;
+	@extend .text-center;
+
+	> div {
+		@extend .pull-top;
+		@extend .same-line;
+	}
+}
+
+.pagination {
+	
+	&-next, &-prev {
+		margin: auto 3px;
+		border: none;
+		border-radius: 8px;
+		width: 3em;
+		height: 3ex;
+		font-size: 110%;
+	}
+	
+	&-page {
+		@extend .text-left;
+		border: none;
+		border-radius: 5px;
+		padding: 4.5px 6px;
+		width: 4em;
+		height: 3ex;
+	}
+}

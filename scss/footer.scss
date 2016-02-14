@@ -1,0 +1,51 @@
+@import 'common';
+
+$link-color: #000;
+
+footer {
+	@extend .small-text;
+	margin-top: 5px;
+	
+	h1 {
+		@extend .small-text;
+		@extend .bold;
+		margin-top: 5px;
+		margin-bottom: 0;
+	}
+	
+	ul {
+		margin-top: 1px;
+		margin-bottom: 0;
+		list-style-type: none;
+		padding: 0;
+		
+		> li {
+			@extend .same-line;
+			@extend .pull-center-v;
+			margin-left: 10px;
+		}
+	}
+	
+	img {
+		height: 20px;
+	}
+	
+	a, a:link, a:visited {
+		@extend .bold;
+		text-decoration: none;
+		color: $link-color;
+	}
+			
+	a:hover, a:active {
+		color: lighten($link-color, 35%);
+	}
+	
+	a[rel="license"] {
+		display: block;
+	}
+	
+	p {
+		margin-top: -4px;
+		margin-bottom: 0;
+	}
+}
