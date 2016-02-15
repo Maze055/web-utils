@@ -1,15 +1,18 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Nov 23, 2015, 1:16:49 AM
-    Author     : maze
-*/
+/***************************************
+
+Utility SASS mixins
+
+***************************************/
 
 @import 'common';
 
+/*
+	Mimics border-spacing property on .grid
+	elements: it sets padding on cells only
+	on sides bording another one, so that
+	the spacing is actually applied only on
+	inner cells
+*/
 @mixin grid-inner-spacing($spacing) {
 	& > * {
 		> * {
@@ -34,6 +37,7 @@ and open the template in the editor.
 	}
 }
 
+/* Adds .grid and inner spacing */
 @mixin grid-with-inner-spacing($spacing) {
 	@extend .grid;
 	@include grid-inner-spacing($spacing);

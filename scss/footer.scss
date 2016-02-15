@@ -1,6 +1,12 @@
+/***************************************
+
+CSS styles for standard footer by footer.php
+
+***************************************/
+
 @import 'common';
 
-$link-color: #000;
+$links-color: #000;
 
 footer {
 	@extend .small-text;
@@ -12,7 +18,11 @@ footer {
 		margin-top: 5px;
 		margin-bottom: 0;
 	}
-	
+
+	/*
+		An horizontal list of plain links
+		or liked images
+	*/
 	ul {
 		margin-top: 1px;
 		margin-bottom: 0;
@@ -21,7 +31,7 @@ footer {
 		
 		> li {
 			@extend .same-line;
-			@extend .pull-center-v;
+			@extend .pull-top;
 			margin-left: 10px;
 		}
 	}
@@ -33,13 +43,17 @@ footer {
 	a, a:link, a:visited {
 		@extend .bold;
 		text-decoration: none;
-		color: $link-color;
+		color: $links-color;
 	}
 			
 	a:hover, a:active {
-		color: lighten($link-color, 35%);
+		color: lighten($links-color, 35%);
 	}
 	
+	/*
+		Both image and plain link of license
+		section will be on their own line
+	*/
 	a[rel="license"] {
 		display: block;
 	}

@@ -1,13 +1,12 @@
+/***************************************
+
+Utility CSS classes, mainly used within
+@extend SASS directives
+
+***************************************/
+
 /*
-
-Utility CSS classes
-
-*/
-
-/*
-
-Line-placing classes
-
+	Line-placing classes
 */
 
 .new-line {
@@ -27,9 +26,7 @@ Line-placing classes
 }
 
 /*
-
-Elements-positioning classes
-
+	Elements-positioning classes
 */
 
 .pull-bottom {
@@ -58,9 +55,7 @@ Elements-positioning classes
 }
 
 /*
-
-Grid positioning
-
+	Grid positioning
 */
 
 .grid {
@@ -76,9 +71,7 @@ Grid positioning
 }
 
 /*
-
-Text-positinoing classes
-
+	Text-positinoing classes
 */
 
 .text-center {
@@ -94,9 +87,7 @@ Text-positinoing classes
 }
 
 /*
-
-Font-style classes
-
+	Font-style classes
 */
 
 .bold {
@@ -120,13 +111,16 @@ Font-style classes
 }
 
 /*
-
-/*
-
-Miscellaneous classes
-
+	Miscellaneous
 */
 
+/*
+	This class is meant for nodes that only
+	contain floated elements: since they
+	are rendered outside their parent,
+	without this class the latter would be
+	empty
+*/
 .pull-parent, .float-parent {
 	overflow: auto;
 }
