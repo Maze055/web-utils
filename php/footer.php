@@ -4,7 +4,7 @@ require_once 'common.php';
 
 /**
  * Prints the footer.
- * 
+ *
  * This function prints the footer, that is almost
  * the same for any page. It consists in a bunch of
  * sections:
@@ -23,22 +23,22 @@ require_once 'common.php';
  * these should be valid indexes of the JSON object in
  * footer.json file. By now, however, Raspberry,
  * Apache, MySQL, PHP and jQuery are always displayed.
- * 
- * @param string $repoName Repository name on GitHub. 
+ *
+ * @param string $repoName Repository name on GitHub.
  * @param string $version Site version.
  * @param mixed[]|varargs $pluginsList Indexes of footer.json file for which a link in "Powereb by" section should be displayed.
  */
 function footer($repoName, $version, ...$pluginsList) {
 	if (is_array($pluginsList[0]) && count($pluginsList[0]))
 		$pluginsList = $pluginsList[0];
-	
+
 	$pluginsDataList = readJSONFile("${_SERVER['DOCUMENT_ROOT']}/util/json/footer.json");
 
 ?>
 <footer>
 	<section>
 		<h1>Sorgenti su GitHub e versione</h1>
-		<p><a href="https://github.com/Maze055/<?php echo $repoName; ?>">Repository GitHub</a>;
+		<p><a href="https://github.com/Maze055/web-<?php echo $repoName; ?>">Repository GitHub</a>;
 			versione <?php echo $version; ?></p>
 	</section>
 	<section>
@@ -77,7 +77,7 @@ function footer($repoName, $version, ...$pluginsList) {
 ?>
 			<li>
 <?php
-			
+
 			if ($pluginData['img'])
 				echo <<<BOUND
 				<a href="${pluginData['url']}" target="_blank" hreflang="en">
