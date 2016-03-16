@@ -5,7 +5,7 @@ accessLevels:
 charset:
 	- UTF-8
 
-destination: "/home/maze/Files/Programming/Web Servers/Local/docs/php"
+destination: "/home/maze/Files/Programming/WebServers/Local/docs/php"
 
 exclude:
 	- autoload.php
@@ -13,6 +13,6 @@ exclude:
 
 noSourceCode: yes
 
-source: "/home/maze/Files/Programming/Web Servers/Local/util/php"
+source: "/home/maze/Files/Programming/WebServers/Local/util/php"
 
 tree: yes

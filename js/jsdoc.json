@@ -1,19 +1,19 @@
 {
 	"source": {
-		"include": ["/home/maze/Files/Programming/Web Servers/Local/util/js"],
-		"exclude": ["/home/maze/Files/Programming/Web Servers/Local/util/js/jsdoc.json"]
+		"include": ["/home/maze/Files/Programming/WebServers/Local/util/js"],
+		"exclude": ["/home/maze/Files/Programming/WebServers/Local/util/js/jsdoc.json"]
     },
-	
+
 	"opts": {
-		"destination": "/home/maze/Files/Programming/Web Servers/Local/docs/js/",
+		"destination": "/home/maze/Files/Programming/WebServers/Local/docs/js/",
 		"recurse": true
 	},
-	
+
 	"templates": {
 		"default": {
 			"outputSourceFiles": false
 		},
-		
+
 		"cleverLinks": true
 	}
 }

@@ -71,7 +71,7 @@ class MySQLConn {
 			die("Connection to database failed due to: {$this -> conn -> connect_error}\n");
 
 		if (!$this -> conn -> set_charset($charset))
-			die("Faled to set charset $charset due to: {$this -> conn -> error}\n");
+			die("Failed to set charset $charset due to: {$this -> conn -> error}\n");
 
 		$this -> error =& $this -> conn -> error;
 	}

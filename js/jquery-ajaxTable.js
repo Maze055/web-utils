@@ -132,7 +132,7 @@ $.fn.ajaxTable = function() {
 	 * @param {string} params - Standard URL-encoded string of parameters sent to the server script. Note that if Pagination is enabled, 'page' and 'pageLength' are added automatically.
 	 * @return {jQuery} This jQuery instance.
 	 *
-	 * @example myTable.ajaxTable('submit', {request: 'myRequest', id: 7});
+	 * @example myTable.ajaxTable('submit', 'request=myRequest&id=7');
 	 */
 	else switch (arguments[0]) {
 		case 'submit':
