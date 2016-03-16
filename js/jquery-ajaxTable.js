@@ -5,12 +5,12 @@
  * data are fetched. Note that it has no return value,
  * so you must do anything you need to update table
  * content by yourself.
- * 
+ *
  * @summary Called when AJAX data are available to build new rows.
- * 
+ *
  * @callback rowsFactory
  * @memberof jQuery-AjaxTable.
- * 
+ *
  * @param {jQuery} table - The table object jQuery-Ajaxtable was initialized on.
  * @param {*} data - Data returned by AJAX call.
  */
@@ -30,7 +30,7 @@ $.fn.ajaxTable = function() {
 	 * as first and only parameter. Throughout the documentation
 	 * it will be thus referred to as a class, but it's actually
 	 * a method: hence, there will be exapmes everywhere.
-	 * 
+	 *
 	 * @param {object} args - Wrapper for named parameters.
 	 * @param {string} args.url - Url for all subsequent AJAX requests.
 	 * @param {object} [args.ajax] - A {@link https://api.jquery.com/jQuery.ajax/#jQuery-ajax-settings jQuery Ajax settings} plain object, that will be used for all subsequent requests. The default value is that of {@link https://api.jquery.com/jQuery.getJSON/ $.getJSON()}, that is a GET request returning JSON data; any url property will overwrite the one provided directly within args.
@@ -38,7 +38,7 @@ $.fn.ajaxTable = function() {
 	 * @param {boolean} [args.autoEmpty=true] - If set, all the rows are dropped before updating.
 	 * @param {object} [args.pagination] - When provided, it will be used to construct a {@link Pagination} object, meaning that rows will be paginated.
 	 * @param {boolean} [args.resetPage=false] - Initial value for reserPage property.
-	 * 
+	 *
 	 * @example myTable.ajaxTable({
 	 *	url: 'http://my.example.url/myScript.php',
 	 *	ajax: {dataType: 'xml'},
@@ -52,7 +52,7 @@ $.fn.ajaxTable = function() {
 	 */
 	if (typeof(arguments[0]) == 'object') {
 		var params = arguments[0];
-		
+
 		/*
 			If a table is supplied, the first row must
 			not be removed since it's the heading
@@ -61,18 +61,18 @@ $.fn.ajaxTable = function() {
 			case 'table':
 				this.emptyFunction = function() { this.find('tr:gt(0)').remove(); };
 				break;
-			
+
 			case 'tbody':
 				this.emptyFunction = this.empty;
 				break;
-			
+
 			default:
 				console.log('ajaxTable can obly be applied to tables and tbodies');
 				return;
 		}
 
 		this.initialized = true;
-		
+
 		// Here url property in params.ajax overwrites that in params
 		this.ajaxSettings = this.extend({url: params.url, dataType: 'json'}, params.ajax);
 
@@ -82,7 +82,7 @@ $.fn.ajaxTable = function() {
 			this.pagination = new Pagination(params.pagination);
 			this.resetPage = params.resetPage || false;
 		}
-		
+
 		return this;
 	}
 
@@ -95,10 +95,10 @@ $.fn.ajaxTable = function() {
 	 * can be called with jQuery-AjaxTable API: the method
 	 * name as the first argument and possible parameters
 	 * following.
-	 * 
+	 *
 	 * @name jQuery-AjaxTable#Pagination
 	 * @method
-	 * 
+	 *
 	 * @example myTable.ajaxTable('last');
 	 * @example myTable.ajaxTable('addPageCheckListener', 'page', 'change', function() {
 	 *	console.log('Page value changed correctly');
@@ -109,7 +109,7 @@ $.fn.ajaxTable = function() {
 		var args = Array.prototype.slice.call(arguments, 1);
 		return Pagination.prototype[method].apply(this.pagination, args);
 	}
-	
+
 	/**
 	 * This method performs an AJAX request, using url and
 	 * ajax parameters given once and for all at the
@@ -118,36 +118,37 @@ $.fn.ajaxTable = function() {
 	 * Pagination} is enabled, current page number and
 	 * pages length are got from the instance within this
 	 * class, and added to params at properties 'page' and
-	 * 'pageLength'; also, if the response is not an Object
+	 * 'pageLength'; also, if the response is neither an Object
 	 * nor an Array, it's considered as a one-element page.
 	 * If {@link jQuery-AjaxTable#autoEmpty autoEmpty} is
 	 * set, the table will be cleared before calling makeRows.
-	 * 
+	 *
 	 * @summary Performs an AJAX request and updates the
 	 * table using the response.
-	 * 
+	 *
 	 * @name jQuery-AjaxTable#submit
 	 * @method
-	 * 
-	 * @param {object} params - Parameters sent to the server script. Note that if Pagination is enabled, 'page' and 'pageLength' properties are added automatically.
+	 *
+	 * @param {string} params - Standard URL-encoded string of parameters sent to the server script. Note that if Pagination is enabled, 'page' and 'pageLength' are added automatically.
 	 * @return {jQuery} This jQuery instance.
-	 * 
+	 *
 	 * @example myTable.ajaxTable('submit', {request: 'myRequest', id: 7});
 	 */
 	else switch (arguments[0]) {
 		case 'submit':
 			var params = arguments[1];
-			
+
 			if (this.pagination) {
+				params += '&page=';
 				if (this.pagination.pageChanged)
-					params.page = this.pagination.pageNumber();
+					params += this.pagination.pageNumber();
 				else
-					params.page = 1;
+					params += '1';
 				this.pagination.pageChanged = false;
-				
-				params.pageLength = this.pagination.pageLength;
+
+				params += '&pageLength=' + this.pagination.pageLength;
 			}
-			
+
 			$.ajax( this.extend({data: params, success: (function(data) {
 					if (this.autoEmpty)
 						this.emptyFunction();
@@ -158,7 +159,7 @@ $.fn.ajaxTable = function() {
 						if (typeof(data) != 'object' && typeof(data) != 'array')
 							this.pagination[params.page == 1 ? 'only' : 'last']();
 						else
-							if (params.page == 1) 
+							if (params.page == 1)
 								this.pagination[data.length < this.pagination.pageLength
 									? 'only' : 'first']();
 						else
@@ -166,45 +167,45 @@ $.fn.ajaxTable = function() {
 									? 'last' : 'other'](params.page);
 					}
 				}).bind(this)}, this.ajaxSettings) );
-			
+
 			return this;
-		
+
 		/**
 		 * This method returns the value of {@link Pagination#pageLength pageLength}
 		 * property of Pagination instance within this class when called
 		 * with no argument, otherwise sets it to the one provided and
 		 * returns this {@link jQuery} instance. Obviously, won't work
 		 * when pagination is not set.
-		 * 
+		 *
 		 * @summary Gets or sets {@link Pagination#pageLength pageLength}
 		 * property of this class Pagination instance.
-		 * 
+		 *
 		 * @name jQuery-AjaxTable#pageLength
 		 * @method
-		 * 
+		 *
 		 * @param {integer} [length] - The value pageLength property will be set to, if provided.
 		 * @return {(integer|jQuery)} pageLength property value when getting, this jQuery instance when setting.
-		 * 
+		 *
 		 * @example myTable.ajaxTable('pageLength', 20);
 		 */
 		case 'pageLength':
-		
+
 		/**
 		 * This method returns the value of {@link Pagination#pageChanged pageChanged}
 		 * property of Pagination instance within this class when called
 		 * with no argument, otherwise sets it to the one provided and
 		 * returns this {@link jQuery} instance. Obviously, won't work
 		 * when pagination is not set.
-		 * 
+		 *
 		 * @summary Gets or sets {@link Pagination#pageChanged pageChanged}
 		 * property of this class Pagination instance.
-		 * 
+		 *
 		 * @name jQuery-AjaxTable#pageChanged
 		 * @method
-		 * 
+		 *
 		 * @param {boolean} [changed] - The value pageChanged property will be set to, if provided.
 		 * @return {(boolean|jQuery)} pageChanged property value when getting, this jQuery instance when setting.
-		 * 
+		 *
 		 * @example myTable.ajaxTable('pageChanged', false);
 		 */
 		case 'pageChanged':
@@ -219,15 +220,15 @@ $.fn.ajaxTable = function() {
 		 * with no argument, otherwise sets it to the one provided and returns
 		 * this {@link jQuery} instance. Obviously, won't work
 		 * when pagination is not set.
-		 * 
+		 *
 		 * @summary Gets or sets resetPage property.
-		 * 
+		 *
 		 * @name jQuery-AjaxTable#resetPage
 		 * @method
-		 * 
+		 *
 		 * @param {boolean} [reset] - The value resetPage property will be set to, if provided.
 		 * @return {(boolean|jQuery)} resetPage property value when getting, this jQuery instance when setting.
-		 * 
+		 *
 		 * @example myTable.ajaxTable('resetPage', true);
 		 */
 		case 'resetPage':
@@ -236,20 +237,20 @@ $.fn.ajaxTable = function() {
 			else
 				console.log('Pagination not set');
 			break;
-		
+
 		/**
 		 * This method returns the value of autoEmpty property when called
 		 * with no argument, otherwise sets it to the one provided and returns
 		 * this {@link jQuery} instance.
-		 * 
+		 *
 		 * @summary Gets or sets autoEmpty property.
-		 * 
+		 *
 		 * @name jQuery-AjaxTable#autoEmpty
 		 * @method
-		 * 
+		 *
 		 * @param {boolean} [reset] - The value autoEmpty property will be set to, if provided.
 		 * @return {(boolean|jQuery)} autoEmpty property value when getting, this jQuery instance when setting.
-		 * 
+		 *
 		 * @example myTable.ajaxTable('autoEmpty', false);
 		 */
 		case 'autoEmpty':
