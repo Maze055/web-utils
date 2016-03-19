@@ -60,14 +60,55 @@ Utility CSS classes, mainly used within
 
 .grid {
 	display: table;
-	
+
 	> * {
 		display: table-row;
-		
+
 		> * {
 			display: table-cell;
 		}
-	}	
+	}
+}
+
+/*
+	Flexboxes: only most common configurations
+*/
+
+.flex {
+
+	&-row {
+		display: flex;
+		flex-direction: row;
+	}
+
+	&-column {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&-multiple {
+		flex-wrap: wrap;
+	}
+
+	&-single {
+		flex-wrap: nowrap;
+	}
+
+	&-center-main {
+		justify-content: space around;
+	}
+
+	&-center-cross {
+		align-items: center;
+	}
+
+	&-fill-cross {
+		align-items: stretch;
+	}
+
+	&-full-grow {
+		flex-basis: 0px;
+	}
 }
 
 /*

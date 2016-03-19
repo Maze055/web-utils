@@ -139,14 +139,12 @@ $.fn.ajaxTable = function() {
 			var params = arguments[1];
 
 			if (this.pagination) {
-				params += '&page=';
-				if (this.pagination.pageChanged)
-					params += this.pagination.pageNumber();
-				else
-					params += '1';
-				this.pagination.pageChanged = false;
+				var page = this.pagination.pageChanged ?
+						this.pagination.pageNumber() : 1;
+				params += '&pageLength=' + this.pagination.pageLength
+						+ '&page=' + page;
 
-				params += '&pageLength=' + this.pagination.pageLength;
+				this.pagination.pageChanged = false;
 			}
 
 			$.ajax( this.extend({data: params, success: (function(data) {
@@ -157,14 +155,13 @@ $.fn.ajaxTable = function() {
 
 					if (this.pagination) {
 						if (typeof(data) != 'object' && typeof(data) != 'array')
-							this.pagination[params.page == 1 ? 'only' : 'last']();
-						else
-							if (params.page == 1)
-								this.pagination[data.length < this.pagination.pageLength
-									? 'only' : 'first']();
+							this.pagination[page == 1 ? 'only' : 'last']();
+						else if (page == 1)
+							this.pagination[data.length < this.pagination.pageLength
+								? 'only' : 'first']();
 						else
 							this.pagination[data.length < this.pagination.pageLength
-									? 'last' : 'other'](params.page);
+									? 'last' : 'other'](page);
 					}
 				}).bind(this)}, this.ajaxSettings) );
 
