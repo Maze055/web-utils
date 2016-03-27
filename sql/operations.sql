@@ -1,3 +1,6 @@
+--
+-- Database: `common`
+--
 CREATE DATABASE IF NOT EXISTS `common` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `common`;
 
@@ -5,6 +8,7 @@ DELIMITER $$
 --
 -- Procedures
 --
+DROP PROCEDURE IF EXISTS `limitResultSet`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `limitResultSet` (`rowsCount` INT, `startRow` INT, `orderBy` VARCHAR(10))  MODIFIES SQL DATA
 begin
 	set @startRow = startRow, @rowsCount = rowsCount;
