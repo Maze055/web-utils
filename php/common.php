@@ -22,10 +22,10 @@ function makeOptions($options, $keysAsValues = false) {
 	foreach ($options as $key => $option) {
 		$pieces[] = '<option';
 		if (is_array($option)) {
+			$text = ">${option['text']}</option>";
+			unset($option['text']);
 			foreach ($option as $attribute => $value) {
-				if ($attribute == 'text')
-					$text = ">$value</option>";
-				else if (isset($value))
+				if (isset($value))
 					$pieces[] = " $attribute='$value'";
 			}
 			$pieces[] = $text;
