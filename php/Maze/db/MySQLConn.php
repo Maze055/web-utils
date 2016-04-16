@@ -92,7 +92,10 @@ class MySQLConn {
 	 * returned untouched.
 	 *
 	 * The result array is always numeric, but its
-	 * elements can be either associative or numeric.
+	 * elements can be either associative or numeric;
+	 * anyway, null fileds are removed, since they
+	 * are usually tested with isset() and co. and
+	 * hence there's no point in keeping those.
 	 * Also, a callback can be applied to every row
 	 * before it is put into the result.
 	 *
@@ -106,16 +109,18 @@ class MySQLConn {
 	public static function procResult($result, $type, $callback = null) {
 
 		// Non-resultsets arguments can't be processed: returning what mysql did
-
 		if (!($result instanceof \mysqli_result))
 			return $result;
 
-		$processRow = is_callable($callback);
-		while ($row = $result -> fetch_array($type))
-			$rows[] = $processRow ? $callback($row) : $row;
-
-		$result -> free();
-		return isset($rows) ? $rows : [];
+		return array_map(is_callable($callback)
+				? function($row) use ($callback) {
+					return array_filter($callback($row),
+							function($field) { return isset($field); });
+				}
+				: function($row) {
+					return array_filter($row,
+						function($field) { return isset($field); });
+				}, $result -> fetch_all($type));
 	}
 
 	/**
