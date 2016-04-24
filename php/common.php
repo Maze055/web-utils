@@ -15,7 +15,7 @@
  * 'value' HTML property, depending on $keysAsValues being set.
  *
  * @param mixed[] $options Its elements can be either arrays or anything castable to a string. In the former case, every key-value pair is turned to an HTML attribute-value pair; in the latter one, the element itself is used as text for the option tag.
- * @param boolean $keysAsValues If true, values are added to option> elements using keys of $options.
+ * @param boolean $keysAsValues If true, values are added to <option> elements using keys of $options.
  * @return string The concatenation of $options elements into HTML option tags.
  */
 function makeOptions($options, $keysAsValues = false) {
@@ -152,4 +152,21 @@ function readJSONFile($filePath, $toHTMLEntities = true) {
 	if ($toHTMLEntities)
 		$fileContents = htmlentities($fileContents, ENT_NOQUOTES, 'utf-8');
 	return json_decode($fileContents, true);
+}
+
+/**
+ * Deletes array element which are not set.
+ *
+ * This function returns another array which has
+ * unset elements removed; keys are preserved.
+ * It acts exactly like array_filter($array, 'isset'),
+ * if only this syntax were possible.
+ *
+ * @param mixed[] $array The source array.
+ * @return mixed[] An array like the source one, but with unset elements removed.
+ */
+function filterIsset($array) {
+	return array_filter($array, function($value) {
+			return isset($value);
+	});
 }

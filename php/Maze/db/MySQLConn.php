@@ -2,6 +2,8 @@
 
 namespace Maze\db;
 
+require_once 'common.php';
+
 /**
  * Utility class with methods to work with mysql
  * using mysqli.
@@ -112,14 +114,9 @@ class MySQLConn {
 		if (!($result instanceof \mysqli_result))
 			return $result;
 
-		return array_map(is_callable($callback)
-				? function($row) use ($callback) {
-					return array_filter($callback($row),
-							function($field) { return isset($field); });
-				}
-				: function($row) {
-					return array_filter($row,
-						function($field) { return isset($field); });
+		return array_map(!is_callable($callback) ? 'filterIsset'
+				: function($row) use ($callback) {
+					return filterIsset($callback($row));
 				}, $result -> fetch_all($type));
 	}
 
