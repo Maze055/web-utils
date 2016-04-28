@@ -18,7 +18,7 @@ Utility CSS classes, mainly used within
 }
 
 .newlines {
-	white-space: normal;
+	white-space: initial;
 }
 
 .no-newlines {
@@ -95,7 +95,7 @@ Utility CSS classes, mainly used within
 	}
 
 	&-center-main {
-		justify-content: space around;
+		justify-content: center;
 	}
 
 	&-center-cross {

@@ -46,27 +46,27 @@ function footer($repoName, $version, ...$pluginsList) {
 		<ul>
 			<li>
 				<a href="https://www.raspberrypi.org" target="_blank" hreflang="en">
-					<img src="../util/img/raspberry.png" alt="Powered by Raspberry PI" />
+					<img src="/util/img/raspberry.png" alt="Powered by Raspberry PI" />
 				</a>
 			</li>
 			<li>
 				<a href="https://httpd.apache.org" target="_blank" hreflang="en">
-					<img src="../util/img/apache.gif" alt="Powered by Apache HTTP Server" />
+					<img src="/util/img/apache.gif" alt="Powered by Apache HTTP Server" />
 				</a>
 			</li>
 			<li>
 				<a href="https://www.mysql.com" target="_blank" hreflang="en">
-					<img src="../util/img/mysql.png" alt="Powered by MySQL" />
+					<img src="/util/img/mysql.png" alt="Powered by MySQL" />
 				</a>
 			</li>
 			<li>
 				<a href="https://secure.php.net" target="_blank" hreflang="en">
-					<img src="../util/img/php.png" alt="Powered by PHP" />
+					<img src="/util/img/php.png" alt="Powered by PHP" />
 				</a>
 			</li>
 			<li>
 				<a href="https://jquery.com" target="_blank" hreflang="en">
-					<img src="../util/img/jquery.png" alt="Powered by jQuery" />
+					<img src="/util/img/jquery.png" alt="Powered by jQuery" />
 				</a>
 			</li>
 <?php

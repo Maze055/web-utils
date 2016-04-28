@@ -155,7 +155,7 @@ function readJSONFile($filePath, $toHTMLEntities = true) {
 }
 
 /**
- * Deletes array element which are not set.
+ * Deletes array elements which are not set.
  *
  * This function returns another array which has
  * unset elements removed; keys are preserved.
