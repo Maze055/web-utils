@@ -22,7 +22,7 @@ require_once 'common.php';
  * passed on as arguments, from the third one onwards:
  * these should be valid indexes of the JSON object in
  * footer.json file. By now, however, Raspberry,
- * Apache, MySQL, PHP and jQuery are always displayed.
+ * Apache, MySQL and PHP are always displayed.
  *
  * @param string $repoName Repository name on GitHub.
  * @param string $version Site version.
@@ -64,24 +64,16 @@ function footer($repoName, $version, ...$pluginsList) {
 					<img src="/util/img/php.png" alt="Powered by PHP" />
 				</a>
 			</li>
-			<li>
-				<a href="https://jquery.com" target="_blank" hreflang="en">
-					<img src="/util/img/jquery.png" alt="Powered by jQuery" />
-				</a>
-			</li>
 <?php
 
-	foreach ($pluginsList as $plugin):
+	foreach ($pluginsList as $plugin) {
 			$pluginData = $pluginsDataList[$plugin];
 
-?>
-			<li>
-<?php
-
+			echo '<li>';
 			if ($pluginData['img'])
 				echo <<<BOUND
 				<a href="${pluginData['url']}" target="_blank" hreflang="en">
-					<img src="../util/img/${pluginData['img']}" alt="Powered by ${pluginData['poweredBy']}" />
+					<img src="/util/img/${pluginData['img']}" alt="Powered by ${pluginData['poweredBy']}" />
 				</a>
 BOUND;
 			else
@@ -90,12 +82,8 @@ BOUND;
 					${pluginData['text']}
 				</a>
 BOUND;
-
-?>
-			</li>
-<?php
-
-	endforeach;
+			echo '</li>';
+	}
 
 ?>
 		</ul>

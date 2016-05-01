@@ -5,13 +5,12 @@ CSS styles for standard footer by footer.php
 ***************************************/
 
 @import 'common';
-
-$links-color: #000;
+@import 'mixins';
 
 footer {
 	@extend .small-text;
 	margin-top: 5px;
-	
+
 	h1 {
 		@extend .small-text;
 		@extend .bold;
@@ -28,28 +27,20 @@ footer {
 		margin-bottom: 0;
 		list-style-type: none;
 		padding: 0;
-		
+
 		> li {
 			@extend .same-line;
 			@extend .pull-top;
 			margin-left: 10px;
 		}
 	}
-	
+
 	img {
 		height: 20px;
 	}
-	
-	a, a:link, a:visited {
-		@extend .bold;
-		text-decoration: none;
-		color: $links-color;
-	}
-			
-	a:hover, a:active {
-		color: lighten($links-color, 35%);
-	}
-	
+
+	@include links(#000);
+
 	/*
 		Both image and plain link of license
 		section will be on their own line
@@ -57,7 +48,7 @@ footer {
 	a[rel="license"] {
 		display: block;
 	}
-	
+
 	p {
 		margin-top: -4px;
 		margin-bottom: 0;

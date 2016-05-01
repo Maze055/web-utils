@@ -42,3 +42,17 @@ Utility SASS mixins
 	@extend .grid;
 	@include grid-inner-spacing($spacing);
 }
+
+/* Styles link tags */
+@mixin links($color) {
+	a, a:link, a:visited {
+		@extend .bold;
+
+		text-decoration: none;
+		color: $color;
+	}
+
+	a:active, a:hover {
+		color: lighten($color, 35%);
+	}
+}

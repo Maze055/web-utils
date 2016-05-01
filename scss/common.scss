@@ -112,7 +112,7 @@ Utility CSS classes, mainly used within
 }
 
 /*
-	Text-positinoing classes
+	Text-positioning classes
 */
 
 .text-center {
@@ -125,6 +125,14 @@ Utility CSS classes, mainly used within
 
 .text-right {
 	text-align: right;
+}
+
+/*
+	Text is usually rendered slighlty below
+	the middle of the parent element
+*/
+.text-center-v {
+	padding-bottom: 0.5ex;
 }
 
 /*
