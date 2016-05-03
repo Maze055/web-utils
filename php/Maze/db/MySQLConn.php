@@ -98,8 +98,13 @@ class MySQLConn {
 	 * anyway, null fileds are removed, since they
 	 * are usually tested with isset() and co. and
 	 * hence there's no point in keeping those.
+	 *
 	 * Also, a callback can be applied to every row
-	 * before it is put into the result.
+	 * before it is pushed into the result: it is fed
+	 * the row with null fields removed, and should
+	 * return a new one: reference argument are
+	 * completely safe, since only the callback
+	 * returned value is effectively used.
 	 *
 	 * @param mysqli_result $result Query result to be processed.
 	 * @param const $type Determines if the rows will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
@@ -116,21 +121,49 @@ class MySQLConn {
 
 		return array_map(!is_callable($callback) ? 'filterIsset'
 				: function($row) use ($callback) {
-					return filterIsset($callback($row));
+					return $callback(filterIsset($row));
 				}, $result -> fetch_all($type));
 	}
 
 	/**
-	 * Interface for mysqli::prepare() method for non-subclasses.
+	 * Creates a prepared statement and dies on failure
+	 * if told to.
+	 *
+	 * This method compiles a query to a MySQL prepared
+	 * statement, dying on failure when a name for the
+	 * query is supplied, to be displayed in the error
+	 * message.
+	 *
+	 * This method is necessary even with no error check
+	 * for non-deriving classes, since prepare() is a
+	 * method of mysqli class, whose instance is protected.
 	 *
 	 * @param string $query Query to prepare.
-	 * @return mysqli_stmt The prepared statement.
+	 * @param string $name Name of the query in the failure error message. If not provided, no error check is performed.
+	 * @return mixed The prepared statement as an instance of mysqli_stmt on success, boolean false on failure.
 	 *
 	 * @see {@link https://secure.php.net/manual/en/mysqli.prepare.php mysqli::prepare()}
 	 * @see {@link https://secure.php.net/manual/en/class.mysqli-stmt.php mysli_stmt}
 	 */
-	public function prepare($query) {
-		return $this -> conn -> prepare($query);
+	public function prepare($query, $name = null) {
+		$prepStmt = $this -> conn -> prepare($query);
+		if (!$prepStmt && isset($name))
+			die("\$$name preparation failed due to: {$this -> conn -> error}\n");
+		return $prepStmt;
+	}
+
+	/**
+	 * Closes a mysqli_stmt instance, displaying
+	 * an error message on failure.
+	 *
+	 * @param mysqli_stmt $stmt The statement to be closed.
+	 * @param string $name Name of the statement in failre error message.
+	 *
+	 * @see {@link https://secure.php.net/manual/en/class.mysqli-stmt.php mysli_stmt}
+	 */
+	public function closeStmt($stmt, $name) {
+		if (!$stmt -> close())
+			echo "\$$name closing failed due to: " . $stmt -> error . '\n';
 	}
 
 	/**
