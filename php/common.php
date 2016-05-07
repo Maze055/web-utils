@@ -170,3 +170,92 @@ function filterIsset($array) {
 			return isset($value);
 	});
 }
+
+/**
+ * Filters an input array, dying on failures.
+ *
+ * This function filters an input array using
+ * filter_input_array() and checks for failures,
+ * printing an error message for each unsuccessful
+ * filter and dying afterwards when any is found.
+ *
+ * In the case of every filter succeeding, the
+ * result of filter_input_array() with $add_empty
+ * argument unset is returned: that is, an array
+ * holding results, without keys for missing
+ * corresponding ones in input.
+ *
+ * There is also the possibility to automatically
+ * add FILTER_NULL_ON_FAILURE flag to all
+ * FILTER_VALIDATE_BOOLEAN filters, by setting
+ * $strictBool to true.
+ *
+ * @param int $input An input constant, the same of both filter_input_array() and {@link https://secure.php.net/manual/en/function.filter-input.php filter_input()} PHP built-in.
+ * @param mixed[] $definition An array defining the filters, to be used with filter_input_array().
+ * @param boolean $strictBool If true, FILTER_NULL_ON_FAILURE flag will be added to all FILTER_VALIDATE_BOOLEAN filters of $definition.
+ * @return mixed[] When every filter succeeds, an array containing all filters results, with no keys for missing matching ones in input.
+ *
+ * @see {@link https://secure.php.net/manual/en/function.filter-input-array.php filter_input_array()}
+ */
+function filterInputArrayDie($input, $definition, $strictBool = false) {
+
+	/*
+		Since PHP input filters return boolean false on
+		failure, boolean-checked inputs must be handled
+		differently: this array holds information about
+		what keys in $definition are supposed to be boolean
+	*/
+	$booleans = array_map(function($filter) {
+
+			// Check out $definition syntax in filter_input_array()
+			return (is_array($filter) ? $filter['filter'] : $filter)
+					== FILTER_VALIDATE_BOOLEAN;
+		}, $definition);
+
+	// Check out $definition syntax in filter_input_array()
+	static $filterBool = [
+		'filter' => FILTER_VALIDATE_BOOLEAN,
+		'flags' => FILTER_NULL_ON_FAILURE
+	];
+
+	if ($strictBool) {
+		foreach ($definition as &$filter) {
+
+			// Check out $definition syntax in filter_input_array()
+			if (is_array($filter)
+					&& $filter['filter'] == FILTER_VALIDATE_BOOLEAN)
+				$filter = array_merge($filterBool, $filter);
+
+			else if ($filter == FILTER_VALIDATE_BOOLEAN)
+				$filter = $filterBool;
+		}
+	}
+
+	/*
+		$add_empty is set to false since otherwise, when
+		FILTER_NULL_ON_FAILURE is enabled, a non-existent
+		boolean key couldn't be set apart from an invalid
+		one. When the flag is not set there's no reason to
+		keep $add_empty false, but the function interface
+		is much plainer this way.
+	*/
+	$filteredInput = filter_input_array($input, $definition, false);
+
+	foreach ($filteredInput as $key => $value) {
+
+		/*
+			null values can only be invalid booleans,
+			since $add_empty is set to false. false
+			values are to be regarded as failed filters
+			only for non-boolean inputs.
+		*/
+		if ($value === null || $value === false && !$booleans[$key]) {
+			echo "Error with input parameter '$key': invalid value<br />";
+			$error = true;
+		}
+	}
+
+	if ($error)
+		die;
+	return $filteredInput;
+}

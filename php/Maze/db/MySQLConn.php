@@ -163,7 +163,7 @@ class MySQLConn {
 	 */
 	public function closeStmt($stmt, $name) {
 		if (!$stmt -> close())
-			echo "\$$name closing failed due to: " . $stmt -> error . '\n';
+			echo "\$$name closing failed due to: {$stmt -> error}\n";
 	}
 
 	/**
