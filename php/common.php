@@ -190,7 +190,7 @@ function filterIsset($array) {
  * FILTER_VALIDATE_BOOLEAN filters, by setting
  * $strictBool to true.
  *
- * @param int $input An input constant, the same of both filter_input_array() and {@link https://secure.php.net/manual/en/function.filter-input.php filter_input()} PHP built-in.
+ * @param int $input An input constant, the same of both filter_input_array() and filter_input() PHP built-in.
  * @param mixed[] $definition An array defining the filters, to be used with filter_input_array().
  * @param boolean $strictBool If true, FILTER_NULL_ON_FAILURE flag will be added to all FILTER_VALIDATE_BOOLEAN filters of $definition.
  * @return mixed[] When every filter succeeds, an array containing all filters results, with no keys for missing matching ones in input.
