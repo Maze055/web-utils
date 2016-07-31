@@ -5,7 +5,7 @@
  * {@link https://github.com/mathiasbynens/String.prototype.startsWith mathiasbynens}.
  */
 
-(function() {
+;(function() {
 
 'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
 var defineProperty = (function() {

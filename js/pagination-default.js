@@ -1,6 +1,6 @@
 /**
  * @fileoverview
- * 
+ *
  * This is the Javascript part of the default settings used for Pagination.js.
  * The initialization object uses three divs (defined in pagination-defaults.html)
  * as containers, and displays a tooltip with a given error message when the page
@@ -17,7 +17,7 @@
 
 var paginationDefaults;
 
-(function($) {
+;(function($) {
 
 $(function() {
 
@@ -32,11 +32,11 @@ var submit = $('[type="submit"]');
  * Containers are found in pagination-default.html, and function
  * for valid and invalid page use tooltipster to display the
  * provided error message.
- * 
+ *
  * @summary Returns an object for Pagination.js constructor.
- * 
+ *
  * @global
- * 
+ *
  * @param {string} errorMsg - The error message the tooltip will display.
  * @return {object} Initialization object for Pagination.js.
  */
@@ -46,13 +46,13 @@ paginationDefaults = function(errorMsg) {
 		prev: prev,
 		page: page,
 		pageLength: 10,
-	
+
 		invalidPage: function() {
 			page.tooltipster('content', errorMsg);
 			page.tooltipster('show');
 			submit.prop('disabled', true);
 		},
-	
+
 		validPage: function() {
 			page.tooltipster('hide');
 			submit.prop('disabled', false);

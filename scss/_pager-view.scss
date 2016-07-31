@@ -1,0 +1,29 @@
+/***************************************
+
+CSS styles for pageView AngularJS component
+
+***************************************/
+
+@import 'common';
+
+.pager-view {
+	@extend .text-center;
+
+	> * {
+		height: 4ex;
+	}
+
+	button {
+		width: 4em;
+
+		/*
+			No clues about why without this
+			text is not centered
+		*/
+		padding: 0;
+	}
+
+	select {
+		width: 5em;
+	}
+}

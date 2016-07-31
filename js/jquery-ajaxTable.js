@@ -1,4 +1,4 @@
-(function($) {
+;(function($) {
 
 /**
  * This callback is used to build new rows when AJAX

@@ -10,7 +10,7 @@
  * </ul>
  */
 
-(function($) {
+;(function($) {
 
 /**
  * Returns the integer value of the specified property,
