@@ -25,7 +25,7 @@ require_once 'common.php';
 class MySQLConn {
 
 	/**
-	 * @var mysqli Database connection.
+	 * @var \mysqli Database connection.
 	 */
 	protected $conn;
 
@@ -35,12 +35,12 @@ class MySQLConn {
 	public $error;
 
 	/**
-	 * @var const
+	 * @var "const"
 	 */
 	const ASSOC = MYSQLI_ASSOC;
 
 	/**
-	 * @var const
+	 * @var "const"
 	 */
 	const NUMERIC = MYSQLI_NUM;
 
@@ -106,10 +106,10 @@ class MySQLConn {
 	 * completely safe, since only the callback
 	 * returned value is effectively used.
 	 *
-	 * @param mysqli_result $result Query result to be processed.
-	 * @param const $type Determines if the rows will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
+	 * @param \mysqli_result|bool $result Query result to be processed.
+	 * @param \Maze\db\"const" $type Determines if the rows will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
 	 * @param callback $callback Callback to be applied to every row before it's put into the result.
-	 * @return mixed[] Bidimensional array representing the resultset.
+	 * @return bool|mixed[] Bidimensional array representing the resultset.
 	 *
 	 * @see {@link https://secure.php.net/manual/en/class.mysqli-result.php mysqli_result}
 	 */
@@ -156,7 +156,7 @@ class MySQLConn {
 	 * Closes a mysqli_stmt instance, displaying
 	 * an error message on failure.
 	 *
-	 * @param mysqli_stmt $stmt The statement to be closed.
+	 * @param \mysqli_stmt $stmt The statement to be closed.
 	 * @param string $name Name of the statement in failre error message.
 	 *
 	 * @see {@link https://secure.php.net/manual/en/class.mysqli-stmt.php mysli_stmt}
@@ -177,9 +177,9 @@ class MySQLConn {
 	 * statements: they can be compiled once and then
 	 * executed with different parameters using this method.
 	 *
-	 * @param const $type Determines if the rows of the result will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
+	 * @param \Maze\db\"const" $type Determines if the rows of the result will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
 	 * @param callback $callback Callback to be applied to every row before it's put into the result.
-	 * @param mysqli_stmt $prepStatement The prepared statement that will be executed.
+	 * @param \mysqli_stmt $prepStatement The prepared statement that will be executed.
 	 * @param mixed $params Variable number of arguments, of any type allowed by prepared statements, that will be used as parameters.
 	 * @return mixed[] Bidimensional array representing the result of the query.
 	 *
@@ -218,7 +218,7 @@ class MySQLConn {
 	 * be bound are required too. The resultset is
 	 * processed into a bidimensional array.
 	 *
-	 * @param const $type Determines if the rows of the result will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
+	 * @param \Maze\db\"const" $type Determines if the rows of the result will be associative or numeric arrays: it's highly recommended to use class constants ASSOC and NUMERIC.
 	 * @param callback $callback Callback to be applied to every row before it's put into the result.
 	 * @param string $query String of SQL code, also a prepared statement code, that will be executed.
 	 * @param mixed $params Variable number of arguments, of any type allowed by prepared statements, that will be used as parameters.
