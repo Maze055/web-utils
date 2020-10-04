@@ -1,5 +1,7 @@
 # web-utils
 
+:skull::skull::skull: ***This repository is archived :sob: I'm not actively maintaining it anymore*** :skull::skull::skull:
+
 This repository hosts utility source files used in my tiny, unknown, and almost unreachable home website.
 
 It is supposed to be placed in a directory called 'util' in top-level web server document root.
